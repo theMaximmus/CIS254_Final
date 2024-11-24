@@ -6,7 +6,6 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
 <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
@@ -15,11 +14,7 @@
          <tabs>
             <Tab text="Inbox">
                <content>
-                  <Pane prefHeight="540.0" prefWidth="700.0">
-                     <children>
-                        <ListView fx:id="inboxListView" prefHeight="510.0" prefWidth="700.0" />
-                     </children>
-                  </Pane>
+                  <ListView prefHeight="200.0" prefWidth="200.0" />
                </content></Tab>
             <Tab text="Sent">
                <content>
