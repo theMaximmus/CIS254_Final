@@ -2,30 +2,33 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
-
 
 <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TabPane prefHeight="560.0" prefWidth="700.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane prefHeight="540.0" prefWidth="700.0" tabClosingPolicy="UNAVAILABLE">
          <tabs>
             <Tab text="Inbox">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-               </content>
-            </Tab>
+                  <Pane prefHeight="540.0" prefWidth="700.0">
+                     <children>
+                        <ListView fx:id="inboxListView" prefHeight="510.0" prefWidth="700.0" />
+                     </children>
+                  </Pane>
+               </content></Tab>
             <Tab text="Sent">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  <ListView fx:id="sentListView" prefHeight="200.0" prefWidth="200.0" />
                </content>
             </Tab>
-            <Tab text="Draft">
+            <Tab text="Drafts">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  <ListView fx:id="draftListView" prefHeight="200.0" prefWidth="200.0" />
                </content>
             </Tab>
          </tabs>

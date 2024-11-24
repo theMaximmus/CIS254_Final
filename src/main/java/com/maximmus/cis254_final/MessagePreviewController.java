@@ -2,8 +2,9 @@ package com.maximmus.cis254_final;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 
-public class HelloController {
+public class MessagePreviewController {
     @FXML
     private Label welcomeText;
 
