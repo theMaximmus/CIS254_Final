@@ -13,8 +13,6 @@ import java.util.ResourceBundle;
 public class MailController implements Initializable {
     @FXML
     private Label welcomeText;
-    ObservableList<String> names = FXCollections.observableArrayList(
-            "Julia", "Ian", "Sue", "Matthew", "Hannah", "Stephan", "Denise");
     @FXML
     private ListView<String> draftListView = new ListView<>();
 
@@ -33,6 +31,8 @@ public class MailController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         String[] list = {"Java", "SOSI", "MB?????"};
         inboxListView.getItems().addAll(list);
+        draftListView.getItems().addAll(list);
+        sentListView.getItems().addAll(list);
         System.out.println(inboxListView.getItems().size());
     }
 }
