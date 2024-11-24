@@ -29,7 +29,7 @@ public class MailController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        String[] list = {"Java", "SOSI", "MB?????"};
+        String[] list = {"Java", "Stalker", "MB?????"};
         inboxListView.getItems().addAll(list);
         draftListView.getItems().addAll(list);
         sentListView.getItems().addAll(list);
