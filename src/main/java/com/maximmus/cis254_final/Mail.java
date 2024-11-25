@@ -16,7 +16,6 @@ public class Mail {
 
     public Mail(User user) {
         this.username = user.getUsername();
-        this.name = user.getName();
 
         LocalDateTime myDateObj = LocalDateTime.now();
         DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");

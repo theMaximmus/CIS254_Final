@@ -3,6 +3,7 @@ package com.maximmus.cis254_final;
 import com.maximmus.cis254_final.RegistrationWindow.RegistrationWindow;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
@@ -14,14 +15,22 @@ import java.util.ResourceBundle;
 
 public class MessagePreviewController implements Initializable {
     @FXML
-    private Label welcomeText;
+    private Label senderLabel;
+    @FXML
+    private Label messageLabel;
     @FXML
     private Circle trashIconCircle;
+    @FXML
+    private CheckBox checkBox;
 
     @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
-    }
+    private ListView<String> draftListView = new ListView<>();
+
+    @FXML
+    private ListView<String> inboxListView = new ListView<>();
+
+    @FXML
+    private ListView<String> sentListView = new ListView<>();
 
 
     @Override
