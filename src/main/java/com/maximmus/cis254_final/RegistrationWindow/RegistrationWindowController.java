@@ -51,7 +51,9 @@ public class RegistrationWindowController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        if (!isFirstTimeRegistration) {
 
+        }
     }
 
     /**
@@ -62,7 +64,6 @@ public class RegistrationWindowController implements Initializable {
     private void showMessage(String message, Alert.AlertType alertType) {
         Alert alert = new Alert(alertType);
         alert.setTitle("Message");
-        alert.setHeaderText(null); // replace "null" with bankAccount to see display the needed account
         alert.setContentText(message);
         alert.showAndWait();
     }
