@@ -29,7 +29,7 @@ public class RegistrationWindow extends Application {
 
         // Set up the scene and stage
         Scene scene = new Scene(root);
-        primaryStage.setTitle("Registration Window");
+        primaryStage.setTitle("Registration");
         primaryStage.setScene(scene);
     }
 
@@ -44,5 +44,6 @@ public class RegistrationWindow extends Application {
             }
         }
         primaryStage.show();
+        System.out.println("Opened the Registration Window");
     }
 }
