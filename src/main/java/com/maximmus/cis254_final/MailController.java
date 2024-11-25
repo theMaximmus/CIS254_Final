@@ -1,19 +1,25 @@
 package com.maximmus.cis254_final;
 
+import com.maximmus.cis254_final.AccountWindow.AccountWindowController;
 import com.maximmus.cis254_final.RegistrationWindow.RegistrationWindow;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
+import javafx.stage.Stage;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -30,6 +36,8 @@ public class MailController implements Initializable {
 
     @FXML
     private ListView<String> sentListView = new ListView<>();
+
+    private boolean isFirstAccount = true;
 
     @FXML
     protected void onHelloButtonClick() {
@@ -50,8 +58,29 @@ public class MailController implements Initializable {
 
         // Handle the click event on the circle
         userIconCircle.setOnMouseClicked(event -> {
-            RegistrationWindow registrationWindow = new RegistrationWindow();
-            registrationWindow.show();
+            if (isFirstAccount) {
+                isFirstAccount = false;
+                RegistrationWindow registrationWindow = new RegistrationWindow();
+                registrationWindow.show();
+            } else {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("account-view.fxml"));
+                Parent root = null;
+                try {
+                    root = loader.load();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                AccountWindowController controller = loader.getController();
+                // Assuming you want the first user in the list:
+                User user = User.getUserObservableList().get(0); // Replace with actual logic
+                controller.displayUserInfo(user);
+
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.setTitle("Account Information");
+                stage.show();
+            }
         });
     }
 }

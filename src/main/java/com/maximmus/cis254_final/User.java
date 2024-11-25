@@ -1,12 +1,23 @@
 package com.maximmus.cis254_final;
 
+import com.maximmus.cis254_final.CustomExceptions.EmptyPasswordException;
+import com.maximmus.cis254_final.CustomExceptions.EmptyUsernameException;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+import java.util.HashMap;
+import java.util.LinkedList;
+
 public class User {
     private String username;
     private String password;
 
+    private static ObservableList<User> userObservableList = FXCollections.observableArrayList();
+
     public User(String username, String password) {
         this.username = username;
         this.password = password;
+        userObservableList.add(this);
     }
 
     public String getUsername() {
@@ -25,13 +36,7 @@ public class User {
         this.password = password;
     }
 
-    public static void registerAnAccount(String username, String password) throws EmptyUsernameException, EmptyPasswordException {
-        if (username.isEmpty() || username == null) {
-            throw new EmptyUsernameException();
-        }
-        if (password.isEmpty() || password == null) {
-            throw new EmptyPasswordException();
-        }
-        User user = new User(username, password);
+    public static ObservableList<User> getUserObservableList() {
+        return userObservableList;
     }
 }
