@@ -29,9 +29,12 @@ public class AccountWindowController implements Initializable {
     public void displayUserInfo(User user) {
         if (user != null) {
             usernameLabel.setText("Username: " + user.getUsername());
+            passwordLabel.setText(user.getPassword());
         } else {
             usernameLabel.setText("No user information available.");
+            passwordLabel.setText("No user information available.");
         }
+
     }
 
 }
