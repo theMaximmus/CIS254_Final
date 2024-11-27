@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane fx:id="anchorPane" minHeight="960.0" minWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.maximmus.cis254_final.MessageComposing.MessageComposeController">
+   <children>
+      <TextArea fx:id="recepientAddressTextArea" minHeight="20.0" minWidth="1280.0" prefHeight="40.0" promptText="Recepient address">
+         <font>
+            <Font name="Segoe UI" size="16.0" />
+         </font>
+      </TextArea>
+      <TextArea fx:id="messageTextArea" layoutY="40.0" minHeight="880.0" minWidth="1280.0" promptText="Message">
+         <font>
+            <Font name="Segoe UI" size="16.0" />
+         </font>
+      </TextArea>
+      <MenuButton fx:id="choiceButton" layoutX="1150.0" layoutY="920.0" minHeight="40.0" minWidth="60.0" mnemonicParsing="false" text="MenuButton">
+        <items>
+          <MenuItem mnemonicParsing="false" text="Action 1" />
+          <MenuItem mnemonicParsing="false" text="Action 2" />
+        </items>
+         <font>
+            <Font name="Segoe UI" size="16.0" />
+         </font>
+      </MenuButton>
+   </children>
+</AnchorPane>
