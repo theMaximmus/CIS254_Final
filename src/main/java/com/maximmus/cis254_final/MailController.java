@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
@@ -27,6 +28,8 @@ public class MailController implements Initializable {
     @FXML
     private Label welcomeText;
     @FXML
+    private Button composeButton;
+    @FXML
     private Circle userIconCircle;
     @FXML
     private ListView<String> draftListView = new ListView<>();
@@ -42,6 +45,11 @@ public class MailController implements Initializable {
     @FXML
     protected void onHelloButtonClick() {
         welcomeText.setText("Welcome to Mail Application!");
+    }
+
+    @FXML
+    protected void onComposeButtonClick() {
+
     }
 
     @Override
@@ -71,15 +79,20 @@ public class MailController implements Initializable {
                     e.printStackTrace();
                 }
 
-                AccountWindowController controller = loader.getController();
-                // Assuming you want the first user in the list:
-                User user = User.getUserObservableList().get(0); // Replace with actual logic
-                controller.displayUserInfo(user);
+                if (!User.getUserObservableList().isEmpty()) {
+                    AccountWindowController controller = loader.getController();
+                    // Assuming you want the first user in the list:
+                    User user = User.getUserObservableList().get(0); // Replace with actual logic
+                    controller.displayUserInfo(user);
 
-                Stage stage = new Stage();
-                stage.setScene(new Scene(root));
-                stage.setTitle("Account Information");
-                stage.show();
+                    Stage stage = new Stage();
+                    stage.setScene(new Scene(root));
+                    stage.setTitle("Account Information");
+                    stage.show();
+                } else {
+                    RegistrationWindow registrationWindow = new RegistrationWindow();
+                    registrationWindow.show();
+                }
             }
         });
     }

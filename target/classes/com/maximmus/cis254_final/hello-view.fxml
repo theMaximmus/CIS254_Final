@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
 
 <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.maximmus.cis254_final.MailController">
    <children>
@@ -40,7 +41,10 @@
             </Circle>
             <CheckBox mnemonicParsing="false" text="CheckBox" />
             <CheckBox mnemonicParsing="false" text="CheckBox" />
-            <Button mnemonicParsing="false" text="Button" />
+            <Button fx:id="composeButton" mnemonicParsing="false" onAction="#onComposeButtonClick" text="Compose">
+               <font>
+                  <Font name="Segoe UI" size="16.0" />
+               </font></Button>
          </children>
          <HBox.margin>
             <Insets />

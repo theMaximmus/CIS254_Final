@@ -61,7 +61,7 @@ public class AccountInformationWindow extends Application {
         System.out.println("Opened the Account View window");
     }
 
-    public static User registerAnAccount(String username, String password) throws EmptyUsernameException, EmptyPasswordException {
+    public static boolean registerAnAccount(String username, String password) throws EmptyUsernameException, EmptyPasswordException {
         if (username.isEmpty() || username == null) {
             throw new EmptyUsernameException();
         }
@@ -69,7 +69,7 @@ public class AccountInformationWindow extends Application {
             throw new EmptyPasswordException();
         }
         User user = new User(username, password);
-        return user;
+        return true;
     }
 
 }

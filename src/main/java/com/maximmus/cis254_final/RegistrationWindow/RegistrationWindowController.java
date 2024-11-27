@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -27,21 +28,26 @@ public class RegistrationWindowController implements Initializable {
     @FXML
     private Button registerButton;
     @FXML
-    private Button cancelButton;
+    private Button cancelRegistrationButton;
+
+    static boolean isRegistred = false;
 
 
     @FXML
-    protected void onCancelButtonClick() {
-
+    protected void onCancelRegistrationButtonClick() {
+        Stage stage = (Stage) cancelRegistrationButton.getScene().getWindow();
+        stage.close();
+        System.out.println("Closed the Registration Window");
     }
 
     @FXML
     protected void onRegisterButtonClick() {
+        isRegistred = isRegistred();
         try {
             String username = usernameTextField.getText();
             String password = passwordTextField.getText();
 
-            User newUser = registerAnAccount(username, password);
+            isRegistred = registerAnAccount(username, password);
             
 
             System.out.println("A new user account is created (Username: " + username + ", Password: " + password + ")");
@@ -51,6 +57,11 @@ public class RegistrationWindowController implements Initializable {
         } catch (EmptyPasswordException emptyPasswordException) {
             showMessage("Password field cannot be empty", Alert.AlertType.ERROR);
             System.out.println("Password field is empty");
+        }
+        if (isRegistred) {
+            Stage stage = (Stage) cancelRegistrationButton.getScene().getWindow();
+            stage.close();
+            System.out.println("Closed the Registration Window");
         }
     }
 
@@ -69,5 +80,13 @@ public class RegistrationWindowController implements Initializable {
         alert.setTitle("Message");
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    public static boolean isRegistred() {
+        return isRegistred;
+    }
+
+    public static void setRegistred(boolean registred) {
+        isRegistred = registred;
     }
 }

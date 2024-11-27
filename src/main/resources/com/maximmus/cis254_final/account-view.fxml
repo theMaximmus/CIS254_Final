@@ -1,12 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
-
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.maximmus.cis254_final.AccountWindow.AccountWindowController">
    <children>
-      <Label fx:id="usernameLabel" layoutX="250.0" layoutY="100.0" prefWidth="100.0" text="Username" textAlignment="CENTER" />
-      <Label fx:id="passwordLabel" layoutX="250.0" layoutY="183.0" prefWidth="100.0" text="password" textAlignment="CENTER" />
+      <Label fx:id="usernameLabel" layoutX="250.0" layoutY="100.0" minWidth="100.0" text="Username" textAlignment="CENTER">
+         <font>
+            <Font name="Segoe UI" size="16.0" />
+         </font></Label>
+      <Label fx:id="passwordLabel" layoutX="250.0" layoutY="140.0" minWidth="100.0" text="Password" textAlignment="CENTER">
+         <font>
+            <Font name="Segoe UI" size="16.0" />
+         </font></Label>
+      <Button fx:id="exitButton" layoutX="250.0" layoutY="240.0" minWidth="100.0" mnemonicParsing="false" onAction="#onExitButtonClick" text="Exit" textAlignment="CENTER">
+         <font>
+            <Font name="Segoe UI" size="16.0" />
+         </font>
+      </Button>
+      <Button fx:id="logOutButton" layoutX="250.0" layoutY="200.0" minWidth="100.0" mnemonicParsing="false" onAction="#onLogOutButtonClick" text="Log out" textAlignment="CENTER">
+         <font>
+            <Font name="Segoe UI" size="16.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
