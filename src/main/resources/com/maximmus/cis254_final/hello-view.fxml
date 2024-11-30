@@ -34,17 +34,28 @@
       </TabPane>
       <VBox alignment="CENTER" prefHeight="540.0" prefWidth="300.0" spacing="12.0">
          <children>
-            <Circle fx:id="userIconCircle" fill="#1f93ff" radius="20.0" stroke="BLACK" strokeType="INSIDE" translateX="110.0" translateY="-195.0">
+            <Circle fx:id="userIconCircle" fill="#1f93ff" radius="20.0" stroke="BLACK" strokeType="INSIDE" translateX="110.0" translateY="-165.0">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
             </Circle>
-            <CheckBox mnemonicParsing="false" text="CheckBox" />
-            <CheckBox mnemonicParsing="false" text="CheckBox" />
+            <CheckBox minWidth="80.0" mnemonicParsing="false" text="Personal" textAlignment="CENTER">
+               <font>
+                  <Font name="Segoe UI" size="14.0" />
+               </font></CheckBox>
+            <CheckBox minWidth="80.0" mnemonicParsing="false" text="Work" textAlignment="CENTER">
+               <font>
+                  <Font name="Segoe UI" size="14.0" />
+               </font></CheckBox>
             <Button fx:id="composeButton" mnemonicParsing="false" onAction="#onComposeButtonClick" text="Compose">
                <font>
                   <Font name="Segoe UI" size="16.0" />
                </font></Button>
+            <Button fx:id="deleteMessageButton" mnemonicParsing="false" text="Delete">
+               <font>
+                  <Font name="Segoe UI" size="16.0" />
+               </font>
+            </Button>
          </children>
          <HBox.margin>
             <Insets />

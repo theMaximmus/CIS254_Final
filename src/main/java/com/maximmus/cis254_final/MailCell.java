@@ -25,9 +25,6 @@ public class MailCell extends ListCell<Mail> {
     private Label senderLabel;
 
     @FXML
-    private Circle trashIconCircle;
-
-    @FXML
     private CheckBox checkBox;
 
     @FXML
@@ -36,12 +33,6 @@ public class MailCell extends ListCell<Mail> {
 
     public MailCell() {
         super();
-//        messageLabel = new Label();
-//        senderLabel = new Label();
-//        userIconCircle = new Circle();
-//        checkBox = new CheckBox();
-//        anchorPane.getChildren().addAll(messageLabel, senderLabel, userIconCircle, checkBox);
-//        loadFXML();
     }
 
     private void loadFXML() {
@@ -74,11 +65,7 @@ public class MailCell extends ListCell<Mail> {
             senderLabel.setText(message.getUsername());
             messageLabel.setText(message.getSubject());
 
-            Image image = new Image(getClass().getResourceAsStream("/com/maximmus/cis254_final/trash_icon.png"));
-            trashIconCircle.setFill(new ImagePattern(image));
-            trashIconCircle.setOnMouseClicked(mouseEvent -> {
-                this.getItem().remove();
-            });
+
 //            System.out.println(anchorPane.getChildren());
 //            System.out.println(anchorPane.getProperties());
             setText(null);

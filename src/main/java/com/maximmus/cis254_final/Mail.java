@@ -14,14 +14,15 @@ public class Mail {
 
     private int number;
 
-    private Labels labels;
+    private Labels label;
 
     static int orderNumber = 0;
 
     private ArrayList<LocalDateTime> records = new ArrayList<LocalDateTime>();
 
-    public Mail(User user) {
+    public Mail(User user, String recepientName, String bodyText) {
         this.username = user.getUsername();
+        this.label = Labels.Personal;
 
         LocalDateTime myDateObj = LocalDateTime.now();
         DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
@@ -33,11 +34,12 @@ public class Mail {
         orderNumber++;
     }
 
-    public Mail (String username, String recepientName, String subject, String bodyText) {
+    public Mail (String username, String recepientName, String subject, String bodyText, Labels label) {
         this.username = username;
         this.recepientName = recepientName;
         this.subject = subject;
         this.bodyText = bodyText;
+        this.label = label;
         LocalDateTime myDateObj = LocalDateTime.now();
         DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
         this.sentDate = myDateObj.format(myFormatObj);
@@ -120,6 +122,5 @@ public class Mail {
 
 enum Labels {
     Personal,
-    Work,
-    Advertisement
+    Work
 }
