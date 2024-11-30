@@ -9,7 +9,7 @@
 
 <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.maximmus.cis254_final.RegistrationWindow.RegistrationWindowController">
    <children>
-      <Label fx:id="registrationLabel" alignment="CENTER" text="Registration">
+      <Label fx:id="registrationLabel" alignment="CENTER" text="Register an account">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
