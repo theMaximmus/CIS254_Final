@@ -13,11 +13,11 @@
 
 <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.maximmus.cis254_final.MailController">
    <children>
-      <TabPane prefHeight="540.0" prefWidth="700.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane maxWidth="700.0" prefHeight="540.0" prefWidth="700.0" tabClosingPolicy="UNAVAILABLE">
          <tabs>
             <Tab text="Inbox">
                <content>
-                  <ListView fx:id="inboxListView" prefHeight="510.0" prefWidth="700.0" />
+                  <ListView fx:id="inboxListView" maxWidth="700.0" prefHeight="510.0" prefWidth="700.0" />
                </content>
             </Tab>
             <Tab text="Sent">

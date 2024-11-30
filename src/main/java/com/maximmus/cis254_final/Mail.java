@@ -12,7 +12,11 @@ public class Mail {
     private String bodyText;
     private String sentDate;
 
+    private int number;
+
     private Labels labels;
+
+    static int orderNumber = 0;
 
     private ArrayList<LocalDateTime> records = new ArrayList<LocalDateTime>();
 
@@ -24,6 +28,9 @@ public class Mail {
         this.sentDate = myDateObj.format(myFormatObj);
         System.out.println(this.sentDate);
         records.add(myDateObj);
+
+        this.number = orderNumber;
+        orderNumber++;
     }
 
     public Mail (String username, String recepientName, String subject, String bodyText) {
@@ -35,7 +42,10 @@ public class Mail {
         DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
         this.sentDate = myDateObj.format(myFormatObj);
         records.add(myDateObj);
-        System.out.println("Generated default message at " + this.sentDate);
+        System.out.println("Generated message at " + this.sentDate);
+
+        this.number = orderNumber;
+        orderNumber++;
     }
 
     public String getUsername() {
@@ -84,6 +94,14 @@ public class Mail {
 
     public void setSentDate(String sentDate) {
         this.sentDate = sentDate;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
     }
 
     @Override

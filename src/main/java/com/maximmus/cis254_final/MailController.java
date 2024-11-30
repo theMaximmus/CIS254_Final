@@ -50,8 +50,9 @@ public class MailController implements Initializable {
     private static ObservableList<Mail> messages;
     public MailController() {
         messages = FXCollections.observableArrayList();
-        messages.add(new Mail("Max","aasd", "asd", "hello"));
-        System.out.println("F");
+        messages.add(new Mail("Admin", "", "Welcome!", "Welocme to the program!"));
+        messages.add(new Mail("Admin", "", "How to use this program", "It is simple"));
+        System.out.println("Generated defaul messages");
     }
 
     @FXML
@@ -191,4 +192,5 @@ public class MailController implements Initializable {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
 }

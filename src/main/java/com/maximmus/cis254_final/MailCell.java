@@ -7,8 +7,10 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.TextFlow;
 
@@ -23,7 +25,7 @@ public class MailCell extends ListCell<Mail> {
     private Label senderLabel;
 
     @FXML
-    private Circle userIconCircle;
+    private Circle trashIconCircle;
 
     @FXML
     private CheckBox checkBox;
@@ -69,10 +71,16 @@ public class MailCell extends ListCell<Mail> {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            senderLabel.setText("message.getUsername()");
-            messageLabel.setText("hello");
+            senderLabel.setText(message.getUsername());
+            messageLabel.setText(message.getSubject());
 
-            System.out.println(anchorPane.getChildren());
+            Image image = new Image(getClass().getResourceAsStream("/com/maximmus/cis254_final/trash_icon.png"));
+            trashIconCircle.setFill(new ImagePattern(image));
+            trashIconCircle.setOnMouseClicked(mouseEvent -> {
+                this.getItem().remove();
+            });
+//            System.out.println(anchorPane.getChildren());
+//            System.out.println(anchorPane.getProperties());
             setText(null);
             setGraphic(anchorPane);
         }

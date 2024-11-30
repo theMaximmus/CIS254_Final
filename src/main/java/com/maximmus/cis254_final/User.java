@@ -25,8 +25,6 @@ public class User {
         this.username = username;
         this.password = password;
         userObservableList.add(this);
-//        messages.add(new Mail("Admin", "NAG", "Welcome!", "Welocme to the program!"));
-//        messages.add(new Mail("Admin", userObservableList.get(0).getUsername(), "How to use this program", "It is simple"));
     }
 
     public String getUsername() {
