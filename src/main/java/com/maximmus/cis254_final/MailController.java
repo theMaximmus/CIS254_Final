@@ -2,8 +2,9 @@ package com.maximmus.cis254_final;
 
 import com.maximmus.cis254_final.AccountWindow.AccountWindowController;
 
-import com.maximmus.cis254_final.MessageComposing.MessageComposeWindow;
 import com.maximmus.cis254_final.RegistrationWindow.RegistrationWindow;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -12,7 +13,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
@@ -22,6 +22,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import com.maximmus.cis254_final.MailCellFactory;
+import javafx.util.Callback;
 
 import static com.maximmus.cis254_final.RegistrationWindow.RegistrationWindowController.isRegistred;
 
@@ -36,13 +39,20 @@ public class MailController implements Initializable {
     private ListView<String> draftListView = new ListView<>();
 
     @FXML
-    private ListView<String> inboxListView = new ListView<>();
+    private ListView<Mail> inboxListView = new ListView<Mail>();
 
     @FXML
     private ListView<String> sentListView = new ListView<>();
 
     private boolean isFirstAccount = true;
     private boolean isRegistred = false;
+
+    private static ObservableList<Mail> messages;
+    public MailController() {
+        messages = FXCollections.observableArrayList();
+        messages.add(new Mail("Max","aasd", "asd", "hello"));
+        System.out.println("F");
+    }
 
     @FXML
     protected void onHelloButtonClick() {
@@ -51,16 +61,17 @@ public class MailController implements Initializable {
 
     @FXML
     protected void onComposeButtonClick() {
-//        isRegistred = isRegistred();
-        if (true) {
+        isRegistred = isRegistred();
+        if (isRegistred) {
             TextArea recipientAddressTextArea = new TextArea();
             TextArea messageTextArea = new TextArea();
             MenuButton choiceButton = new MenuButton();
             MenuItem saveForLaterMenuItem = new MenuItem("Save for later");
+            MenuItem sendMenuItem = new MenuItem("Send");
 
-            choiceButton.getItems().add(saveForLaterMenuItem);
+            choiceButton.getItems().addAll(sendMenuItem, saveForLaterMenuItem);
 
-            recipientAddressTextArea.setFont(new Font("Segoe UI", 16));
+            recipientAddressTextArea.setFont(new Font("Segoe UI", 14));
             messageTextArea.setFont(new Font("Segoe UI", 16));
             choiceButton.setText("Send");
             choiceButton.setFont(new Font("Segoe UI", 16));
@@ -70,27 +81,19 @@ public class MailController implements Initializable {
             recipientAddressTextArea.setMinWidth(960);
             recipientAddressTextArea.setMinHeight(20);
             recipientAddressTextArea.setPrefHeight(20);
+            recipientAddressTextArea.setPromptText("Recepient address");
 
             messageTextArea.setLayoutX(0);
             messageTextArea.setLayoutY(20);
             messageTextArea.setMinWidth(960);
             messageTextArea.setMinHeight(500);
+            messageTextArea.setPromptText("Message");
 
             choiceButton.setLayoutX(880);
             choiceButton.setLayoutY(520);
             choiceButton.setMinWidth(40);
             choiceButton.setMinHeight(40);
 
-
-            choiceButton.setOnAction(event -> {
-                // Implement your action for "Action 1" here
-                System.out.println("Message sent");
-            });
-
-            saveForLaterMenuItem.setOnAction(event -> {
-                // Implement your action for "Action 2" here
-                System.out.println("Message was saved for later");
-            });
 
             Stage newWindow = new Stage();
             newWindow.setTitle("Compose a message");
@@ -102,6 +105,18 @@ public class MailController implements Initializable {
             AnchorPane composeLayout = new AnchorPane();
             composeLayout.getChildren().addAll(recipientAddressTextArea, messageTextArea, choiceButton);
 
+            sendMenuItem.setOnAction(event -> {
+                // Implement your action for "Action 1" here
+                System.out.println("Message sent");
+                newWindow.close();
+            });
+
+            saveForLaterMenuItem.setOnAction(event -> {
+                // Implement your action for "Action 2" here
+                System.out.println("Message was saved for later");
+                newWindow.close();
+            });
+
             // Set the scene and display the new window
             Scene newScene = new Scene(composeLayout, 960, 560);
             newWindow.setScene(newScene);
@@ -111,24 +126,15 @@ public class MailController implements Initializable {
             System.out.println("Register an account first!");
             showMessage("Register an account first!", Alert.AlertType.ERROR);
         }
-//        if (isRegistred) {
-//            MessageComposeWindow messageComposeWindow = new MessageComposeWindow();
-//            messageComposeWindow.showMessageComposeWindow();
-//            System.out.println("Opened the Message Composing window");
-//        } else {
-//            System.out.println("Failed to open the Message Composing window");
-//            System.out.println("Register an account first!");
-//            showMessage("Register an account first!", Alert.AlertType.ERROR);
-//        }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        String[] list = {"Java", "Stalker", "MB?????"};
-        inboxListView.getItems().addAll(list);
-        draftListView.getItems().addAll(list);
-        sentListView.getItems().addAll(list);
-        System.out.println(inboxListView.getItems().size());
+//        Mail[] list = {"Java", "Stalker", "MB?????"};
+//        inboxListView.getItems().addAll(list);
+//        draftListView.getItems().addAll(list);
+//        sentListView.getItems().addAll(list);
+
 
         // adding user icon
         Image image = new Image(getClass().getResourceAsStream("/com/maximmus/cis254_final/user_icon.png"));
@@ -165,6 +171,13 @@ public class MailController implements Initializable {
                 }
             }
         });
+
+
+        inboxListView.setItems(messages);
+        inboxListView.setCellFactory(mailListView -> new MailCell());
+
+        System.out.println(inboxListView.getItems());
+
     }
 
     /**

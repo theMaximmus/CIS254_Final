@@ -13,7 +13,7 @@ public class MailApplication extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(MailApplication.class.getResource("hello-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 960, 540);
         scene.getRoot().setStyle("-fx-font-family: 'Sagoe UI'");
-        stage.setTitle("Hello!");
+        stage.setTitle("Mail");
         stage.setScene(scene);
         stage.show();
     }
