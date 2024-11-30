@@ -1,5 +1,7 @@
 package com.maximmus.cis254_final;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,7 +27,7 @@ public class MailCell extends ListCell<Mail> {
     private Label senderLabel;
 
     @FXML
-    private CheckBox checkBox;
+    private Label timestampLabel;
 
     @FXML
     private AnchorPane anchorPane;
@@ -64,7 +66,7 @@ public class MailCell extends ListCell<Mail> {
             }
             senderLabel.setText(message.getUsername());
             messageLabel.setText(message.getSubject());
-
+            timestampLabel.setText(message.getSentDate());
 
 //            System.out.println(anchorPane.getChildren());
 //            System.out.println(anchorPane.getProperties());
@@ -80,4 +82,6 @@ public class MailCell extends ListCell<Mail> {
 //            fxIconGender.setIcon(FontAwesomeIcon.GENDERLESS);
 //        }
     }
+
+
 }

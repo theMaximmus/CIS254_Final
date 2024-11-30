@@ -41,7 +41,7 @@ public class Mail {
         this.bodyText = bodyText;
         this.label = label;
         LocalDateTime myDateObj = LocalDateTime.now();
-        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         this.sentDate = myDateObj.format(myFormatObj);
         records.add(myDateObj);
         System.out.println("Generated message at " + this.sentDate);

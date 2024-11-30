@@ -22,6 +22,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 import static com.maximmus.cis254_final.RegistrationWindow.RegistrationWindowController.isRegistred;
@@ -36,6 +37,10 @@ public class MailController implements Initializable {
     private Button deleteMessageButton;
     @FXML
     private Circle userIconCircle;
+
+    @FXML
+    private TabPane tabPane;
+
     @FXML
     private ListView<Mail> draftListView = new ListView<>();
 
@@ -184,6 +189,24 @@ public class MailController implements Initializable {
             }
         });
 
+
+        // Setting up the inboxListView
+        inboxListView.setItems(inboxMessages);
+        inboxListView.setCellFactory(mailListView -> new MailCell());
+        inboxListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
+        System.out.println(inboxListView.getItems());
+
+        // Setting up the draftListView
+        draftListView.setItems(draftMessages);
+        draftListView.setCellFactory(draftListView -> new MailCell());
+        draftListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
+        // Setting up the sentListView
+        sentListView.setItems(sentMessages);
+        sentListView.setCellFactory(sentListView -> new MailCell());
+        sentListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
         // Creating the "Delete" button and setting up the logic for it
         Image trashImage = new Image(getClass().getResourceAsStream("/com/maximmus/cis254_final/trash_icon.png"));
         ImageView trashImageView = new ImageView(trashImage);
@@ -192,22 +215,16 @@ public class MailController implements Initializable {
         trashImageView.setPreserveRatio(true);
         deleteMessageButton.setGraphic(trashImageView);
         deleteMessageButton.setOnMouseClicked(mouseEvent -> {
-            System.out.println("Deleted a message");
+            Tab selectedTab = tabPane.getSelectionModel().getSelectedItem();
+            if (Objects.equals(selectedTab.getText(), "Inbox")) {
+                inboxMessages.remove(inboxListView.getSelectionModel().getSelectedItem());
+            } else if (Objects.equals(selectedTab.getText(), "Drafts")) {
+                draftMessages.remove(draftListView.getSelectionModel().getSelectedItem());
+            } else if (Objects.equals(selectedTab.getText(), "Sent")) {
+                sentMessages.remove(sentListView.getSelectionModel().getSelectedItem());
+            }
+            System.out.println("Deleted selected messages");
         });
-
-        // Setting up the inboxListView
-        inboxListView.setItems(inboxMessages);
-        inboxListView.setCellFactory(mailListView -> new MailCell());
-
-        System.out.println(inboxListView.getItems());
-
-        // Setting up the draftListView
-        draftListView.setItems(draftMessages);
-        draftListView.setCellFactory(draftListView -> new MailCell());
-
-        // Setting up the sentListView
-        sentListView.setItems(sentMessages);
-        sentListView.setCellFactory(sentListView -> new MailCell());
     }
 
     /**
