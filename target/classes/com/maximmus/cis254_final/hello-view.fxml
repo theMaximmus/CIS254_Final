@@ -39,14 +39,14 @@
                   <Insets />
                </VBox.margin>
             </Circle>
-            <CheckBox minWidth="80.0" mnemonicParsing="false" text="Personal" textAlignment="CENTER">
+            <CheckBox fx:id="personalLabelCheckBox" minWidth="80.0" mnemonicParsing="false" text="Personal" textAlignment="CENTER">
                <font>
                   <Font name="Segoe UI" size="14.0" />
                </font>
                <VBox.margin>
                   <Insets top="120.0" />
                </VBox.margin></CheckBox>
-            <CheckBox minWidth="80.0" mnemonicParsing="false" text="Work" textAlignment="CENTER">
+            <CheckBox fx:id="workLabelCheckBox" minWidth="80.0" mnemonicParsing="false" text="Work" textAlignment="CENTER">
                <font>
                   <Font name="Segoe UI" size="14.0" />
                </font>

@@ -4,8 +4,14 @@ import com.maximmus.cis254_final.AccountWindow.AccountWindowController;
 
 import com.maximmus.cis254_final.MessageView.MessageViewWindow;
 import com.maximmus.cis254_final.RegistrationWindow.RegistrationWindow;
+import javafx.beans.NamedArg;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -39,7 +45,10 @@ public class MailController implements Initializable {
     private Button openButton;
     @FXML
     private Circle userIconCircle;
-
+    @FXML
+    private CheckBox personalLabelCheckBox;
+    @FXML
+    private CheckBox workLabelCheckBox;
     @FXML
     private TabPane tabPane;
 
@@ -65,18 +74,29 @@ public class MailController implements Initializable {
         draftMessages = FXCollections.observableArrayList();
 
         // adding custom welcoming messages
-        inboxMessages.add(new Mail("Admin", "", "Welcome!", "Welocme to the program!", Labels.Personal));
-        inboxMessages.add(new Mail("Admin", "", "How to use this program", "It is simple", Labels.Personal));
+        inboxMessages.add(new Mail("Admin","admin@mail.com","You", "Welcome!", "Welocme to the program!", Labels.None));
+        inboxMessages.add(new Mail("Admin","admin@mail.com", "You", "How to use this program", "It is simple.\nIt is a simple and efficient email application that lets you send, receive, and organize your emails.", Labels.None));
+        inboxMessages.add(new Mail("Admin","admin@mail.com", "You", "Exmaple of a message labeled as Personal", "This message is labeled as Personal.", Labels.Personal));
+        inboxMessages.add(new Mail("Admin","admin@mail.com", "You", "Exmaple of a message labeled as Work", "This message is labeled as Work.", Labels.Work));
         // adding test messages
-        sentMessages.add(new Mail("Admin", "", "The Sent messages tab", "This is where your sent messages are stored and displayed", Labels.Personal));
-        draftMessages.add(new Mail("Admin", "", "The Draft messages tab", "This is where your drafts are stored and displayed", Labels.Personal));
+        sentMessages.add(new Mail("Admin","admin@mail.com", "You", "The Sent messages tab", "This is where your sent messages are stored and displayed", Labels.None));
+        draftMessages.add(new Mail("Admin","admin@mail.com", "You", "The Draft messages tab", "This is where your drafts are stored and displayed", Labels.None));
         System.out.println("Generated default messages");
     }
 
     @FXML
     protected void onOpenButtonClick() {
         // get selected message
-        Mail mail = inboxListView.getSelectionModel().getSelectedItem();
+        Mail mail = null;
+        Tab selectedTab = tabPane.getSelectionModel().getSelectedItem();
+        if (Objects.equals(selectedTab.getText(), "Inbox")) {
+            mail = inboxListView.getSelectionModel().getSelectedItem();
+        } else if (Objects.equals(selectedTab.getText(), "Drafts")) {
+            mail = draftListView.getSelectionModel().getSelectedItem();
+        } else if (Objects.equals(selectedTab.getText(), "Sent")) {
+            mail = sentListView.getSelectionModel().getSelectedItem();
+        }
+
 
         // set the layout items
         AnchorPane anchorPane = new AnchorPane();
@@ -87,8 +107,8 @@ public class MailController implements Initializable {
         Label messageSubject = new Label();
         Circle userIconCircle = new Circle();
 
-        senderNameLabel.setFont(new Font("Segoe UI", 14));
-        senderAddressLabel.setFont(new Font("Segoe UI Bold", 16));
+        senderNameLabel.setFont(new Font("Segoe UI Bold", 16));
+        senderAddressLabel.setFont(new Font("Segoe UI Bold", 14));
         messageLabel.setFont(new Font("Segoe UI", 16));
         timestampLabel.setFont(new Font("Segoe UI", 14));
         messageSubject.setFont(new Font("Segoe UI Bold", 16));
@@ -98,8 +118,8 @@ public class MailController implements Initializable {
         userIconCircle.setRadius(20);
 
         // Setting the proper layout
-        senderNameLabel.setLayoutX(100);
-        senderNameLabel.setLayoutY(110);
+        senderNameLabel.setLayoutX(110);
+        senderNameLabel.setLayoutY(90);
         senderAddressLabel.setLayoutX(220);
         senderAddressLabel.setLayoutY(110);
         messageLabel.setLayoutX(140);
@@ -130,8 +150,8 @@ public class MailController implements Initializable {
         messageLabel.setText(mail.getBodyText());
         timestampLabel.setText(mail.getSentDate());
         messageSubject.setText(mail.getSubject());
-        senderNameLabel.setText(mail.getName());
-        senderAddressLabel.setText(mail.getUsername());
+        senderNameLabel.setText(mail.getUsername());
+        senderAddressLabel.setText(mail.getAddress());
 
         Stage newWindow = new Stage();
         newWindow.setTitle("Message: " + mail.getSubject());
@@ -192,19 +212,25 @@ public class MailController implements Initializable {
             AnchorPane composeLayout = new AnchorPane();
             composeLayout.getChildren().addAll(recipientAddressTextArea, messageTextArea, choiceButton);
 
+            // Logic for sending a message
             sendMenuItem.setOnAction(event -> {
                 User user = null;
                 if (!getUserObservableList().isEmpty()) {
                     user = getUserObservableList().get(0);
                 }
-                Mail message = new Mail(user, recipientAddressTextArea.getText(), messageTextArea.getText());
+                Mail message = new Mail(user.getUsername(), user.getAddress(), recipientAddressTextArea.getText(),"New message", messageTextArea.getText(), Labels.Personal);
                 inboxMessages.add(0, message);
                 System.out.println("Message sent");
                 newWindow.close();
             });
-
+            // Logic for saving a message for later
             saveForLaterMenuItem.setOnAction(event -> {
-                // Implement your action for "Action 2" here
+                User user = null;
+                if (!getUserObservableList().isEmpty()) {
+                    user = getUserObservableList().get(0);
+                }
+                Mail message = new Mail(user.getUsername(), user.getAddress(), recipientAddressTextArea.getText(),"New message", messageTextArea.getText(), Labels.Personal);
+                draftMessages.add(0, message);
                 System.out.println("Message was saved for later");
                 newWindow.close();
             });
@@ -295,6 +321,32 @@ public class MailController implements Initializable {
             }
             System.out.println("Deleted selected messages");
         });
+
+        // Set the onClick event listener on the personalLabelCheckBox
+        EventHandler<ActionEvent> personalLabelCheckBoxClick = e -> {
+            if (personalLabelCheckBox.isSelected()) {
+                for (Mail message : inboxMessages) {
+                    if (message.getLabel().toString().equals(personalLabelCheckBox.getText())) {
+                        inboxMessages.remove(message);
+                        System.out.println("Displaying messages marked as "+ message.getLabel().toString());
+                    }
+                }
+            }
+        };
+        personalLabelCheckBox.setOnAction(personalLabelCheckBoxClick);
+
+        // Set the onClick event listener on the workLabelCheckBox
+        EventHandler<ActionEvent> workLabelCheckBoxClick = e -> {
+            if (workLabelCheckBox.isSelected()) {
+                for (Mail message : inboxMessages) {
+                    if (message.getLabel().toString().equals(workLabelCheckBox.getText())) {
+                        inboxMessages.remove(message);
+                        System.out.println("Displaying messages marked as " + message.getLabel().toString());
+                    }
+                }
+            }
+        };
+        workLabelCheckBox.setOnAction(workLabelCheckBoxClick);
     }
 
     /**

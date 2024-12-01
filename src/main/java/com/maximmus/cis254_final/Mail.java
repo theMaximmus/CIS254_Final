@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class Mail {
     private String username;
-    private String name;
+    private String address;
     private String recepientName;
     private String subject;
     private String bodyText;
@@ -34,8 +34,9 @@ public class Mail {
         orderNumber++;
     }
 
-    public Mail (String username, String recepientName, String subject, String bodyText, Labels label) {
+    public Mail (String username, String address, String recepientName, String subject, String bodyText, Labels label) {
         this.username = username;
+        this.address = address;
         this.recepientName = recepientName;
         this.subject = subject;
         this.bodyText = bodyText;
@@ -58,12 +59,12 @@ public class Mail {
         this.username = username;
     }
 
-    public String getName() {
-        return name;
+    public String getAddress() {
+        return address;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getRecepientName() {
@@ -110,7 +111,7 @@ public class Mail {
     public String toString() {
         return "Mail{" +
                 "username='" + username + '\'' +
-                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
                 ", recepientName='" + recepientName + '\'' +
                 ", subject='" + subject + '\'' +
                 ", bodyText='" + bodyText + '\'' +
@@ -118,9 +119,14 @@ public class Mail {
                 ", records=" + records +
                 '}';
     }
+
+    public Labels getLabel() {
+        return label;
+    }
 }
 
 enum Labels {
     Personal,
-    Work
+    Work,
+    None
 }

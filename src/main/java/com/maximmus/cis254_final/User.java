@@ -14,6 +14,7 @@ import com.maximmus.cis254_final.Mail;
 
 public class User {
     private String username;
+    private String address;
     private String password;
 
     private ArrayList<LocalDateTime> sentDates = new ArrayList<LocalDateTime>();
@@ -21,9 +22,18 @@ public class User {
     private static ObservableList<User> userObservableList = FXCollections.observableArrayList();
 //    private static ObservableList<Mail> messages = FXCollections.observableArrayList();
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     public User(String username, String password) {
         this.username = username;
         this.password = password;
+        this.address = username+"@mail.com";
         userObservableList.add(this);
     }
 
