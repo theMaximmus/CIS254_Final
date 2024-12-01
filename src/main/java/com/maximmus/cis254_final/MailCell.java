@@ -1,5 +1,6 @@
 package com.maximmus.cis254_final;
 
+import com.maximmus.cis254_final.MessageView.MessageViewWindowController;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.ObservableList;
@@ -37,15 +38,6 @@ public class MailCell extends ListCell<Mail> {
         super();
     }
 
-    private void loadFXML() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("message-preview.fxml"));
-            loader.load();
-        }
-        catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     @Override
     protected void updateItem(Mail message, boolean empty) {
@@ -67,7 +59,6 @@ public class MailCell extends ListCell<Mail> {
             senderLabel.setText(message.getUsername());
             messageLabel.setText(message.getSubject());
             timestampLabel.setText(message.getSentDate());
-
 //            System.out.println(anchorPane.getChildren());
 //            System.out.println(anchorPane.getProperties());
             setText(null);

@@ -25,7 +25,7 @@ public class Mail {
         this.label = Labels.Personal;
 
         LocalDateTime myDateObj = LocalDateTime.now();
-        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         this.sentDate = myDateObj.format(myFormatObj);
         System.out.println(this.sentDate);
         records.add(myDateObj);

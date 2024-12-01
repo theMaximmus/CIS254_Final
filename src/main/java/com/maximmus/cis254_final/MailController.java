@@ -2,6 +2,7 @@ package com.maximmus.cis254_final;
 
 import com.maximmus.cis254_final.AccountWindow.AccountWindowController;
 
+import com.maximmus.cis254_final.MessageView.MessageViewWindow;
 import com.maximmus.cis254_final.RegistrationWindow.RegistrationWindow;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -30,11 +31,11 @@ import static com.maximmus.cis254_final.User.getUserObservableList;
 
 public class MailController implements Initializable {
     @FXML
-    private Label welcomeText;
-    @FXML
     private Button composeButton;
     @FXML
     private Button deleteMessageButton;
+    @FXML
+    private Button openButton;
     @FXML
     private Circle userIconCircle;
 
@@ -72,8 +73,50 @@ public class MailController implements Initializable {
     }
 
     @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to Mail Application!");
+    protected void onOpenButtonClick() {
+        Mail mail = inboxListView.getSelectionModel().getSelectedItem();
+
+        AnchorPane anchorPane = new AnchorPane();
+        Label senderNameLabel = new Label();
+        Label senderAddressLabel = new Label();
+        Label messageLabel = new Label();
+        Label timestampLabel = new Label();
+        Label messageSubject = new Label();
+
+        senderNameLabel.setFont(new Font("Segoe UI Bold", 14));
+        senderAddressLabel.setFont(new Font("Segoe UI Bold", 16));
+        messageLabel.setFont(new Font("Segoe UI", 14));
+        timestampLabel.setFont(new Font("Segoe UI", 14));
+        messageSubject.setFont(new Font("Segoe UI", 14));
+
+        senderNameLabel.setLayoutX(100);
+        senderNameLabel.setLayoutY(110);
+        senderAddressLabel.setLayoutX(180);
+        senderAddressLabel.setLayoutY(110);
+        messageLabel.setLayoutX(140);
+        messageLabel.setLayoutY(250);
+        timestampLabel.setLayoutX(1040);
+        timestampLabel.setLayoutY(110);
+        messageSubject.setLayoutX(100);
+        messageSubject.setLayoutY(50);
+
+        anchorPane.getChildren().addAll(senderAddressLabel, senderNameLabel, messageLabel, timestampLabel, messageSubject);
+
+        messageLabel.setText(mail.getBodyText());
+        timestampLabel.setText(mail.getSentDate());
+        messageSubject.setText(mail.getSubject());
+        senderNameLabel.setText(mail.getName());
+
+        Stage newWindow = new Stage();
+        newWindow.setTitle("Message");
+
+        newWindow.initModality(Modality.APPLICATION_MODAL);
+
+        // Set the scene and display the new window
+        Scene newScene = new Scene(anchorPane, 1280, 680);
+        newWindow.setScene(newScene);
+        newWindow.show();
+        System.out.println("Opened a message");
     }
 
     @FXML

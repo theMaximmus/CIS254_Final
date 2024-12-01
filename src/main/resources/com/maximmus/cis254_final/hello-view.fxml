@@ -47,11 +47,16 @@
                <font>
                   <Font name="Segoe UI" size="14.0" />
                </font></CheckBox>
-            <Button fx:id="composeButton" mnemonicParsing="false" onAction="#onComposeButtonClick" text="Compose">
+            <Button fx:id="composeButton" minWidth="80.0" mnemonicParsing="false" onAction="#onComposeButtonClick" text="Compose">
                <font>
                   <Font name="Segoe UI" size="16.0" />
                </font></Button>
             <Button fx:id="deleteMessageButton" mnemonicParsing="false" text="Delete">
+               <font>
+                  <Font name="Segoe UI" size="16.0" />
+               </font>
+            </Button>
+            <Button fx:id="openButton" minWidth="80.0" mnemonicParsing="false" onAction="#onOpenButtonClick" text="Open">
                <font>
                   <Font name="Segoe UI" size="16.0" />
                </font>
