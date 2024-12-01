@@ -15,6 +15,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
@@ -74,46 +75,72 @@ public class MailController implements Initializable {
 
     @FXML
     protected void onOpenButtonClick() {
+        // get selected message
         Mail mail = inboxListView.getSelectionModel().getSelectedItem();
 
+        // set the layout items
         AnchorPane anchorPane = new AnchorPane();
         Label senderNameLabel = new Label();
         Label senderAddressLabel = new Label();
         Label messageLabel = new Label();
         Label timestampLabel = new Label();
         Label messageSubject = new Label();
+        Circle userIconCircle = new Circle();
 
-        senderNameLabel.setFont(new Font("Segoe UI Bold", 14));
+        senderNameLabel.setFont(new Font("Segoe UI", 14));
         senderAddressLabel.setFont(new Font("Segoe UI Bold", 16));
-        messageLabel.setFont(new Font("Segoe UI", 14));
+        messageLabel.setFont(new Font("Segoe UI", 16));
         timestampLabel.setFont(new Font("Segoe UI", 14));
-        messageSubject.setFont(new Font("Segoe UI", 14));
+        messageSubject.setFont(new Font("Segoe UI Bold", 16));
 
+        Image image = new Image(getClass().getResourceAsStream("/com/maximmus/cis254_final/user_icon.png"));
+        userIconCircle.setFill(new ImagePattern(image));
+        userIconCircle.setRadius(20);
+
+        // Setting the proper layout
         senderNameLabel.setLayoutX(100);
         senderNameLabel.setLayoutY(110);
-        senderAddressLabel.setLayoutX(180);
+        senderAddressLabel.setLayoutX(220);
         senderAddressLabel.setLayoutY(110);
         messageLabel.setLayoutX(140);
         messageLabel.setLayoutY(250);
         timestampLabel.setLayoutX(1040);
         timestampLabel.setLayoutY(110);
         messageSubject.setLayoutX(100);
-        messageSubject.setLayoutY(50);
+        messageSubject.setLayoutY(40);
+        userIconCircle.setLayoutX(60);
+        userIconCircle.setLayoutY(120);
 
-        anchorPane.getChildren().addAll(senderAddressLabel, senderNameLabel, messageLabel, timestampLabel, messageSubject);
+        // set the desired layout sizes
+        senderNameLabel.setMinHeight(60);
+        senderNameLabel.setMinWidth(20);
+        senderAddressLabel.setMinHeight(20);
+        senderAddressLabel.setMinWidth(60);
+        messageLabel.setMinHeight(Region.USE_COMPUTED_SIZE);
+        messageLabel.setMinWidth(1000);
+        timestampLabel.setMinHeight(20);
+        timestampLabel.setMinWidth(80);
+        messageSubject.setMinHeight(40);
+        messageSubject.setMinWidth(1040);
 
+        // adding all items to the root pane
+        anchorPane.getChildren().addAll(senderAddressLabel, senderNameLabel, messageLabel, timestampLabel, messageSubject, userIconCircle);
+
+        // mapping the text from the message
         messageLabel.setText(mail.getBodyText());
         timestampLabel.setText(mail.getSentDate());
         messageSubject.setText(mail.getSubject());
         senderNameLabel.setText(mail.getName());
+        senderAddressLabel.setText(mail.getUsername());
 
         Stage newWindow = new Stage();
-        newWindow.setTitle("Message");
+        newWindow.setTitle("Message: " + mail.getSubject());
 
+        // Set the modality so that the newly created window covers all other ones
         newWindow.initModality(Modality.APPLICATION_MODAL);
 
         // Set the scene and display the new window
-        Scene newScene = new Scene(anchorPane, 1280, 680);
+        Scene newScene = new Scene(anchorPane, 1180, 680);
         newWindow.setScene(newScene);
         newWindow.show();
         System.out.println("Opened a message");
